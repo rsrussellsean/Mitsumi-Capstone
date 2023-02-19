@@ -1,0 +1,8 @@
+.streamlit/
+output/
+Pipfile
+.env
+env/
+_pycache_/
+.yaml
+docker-compose.yaml
