@@ -2,6 +2,10 @@
 
 Automatic Qualification of Resin Application
 
+# Note
+
+python 3.10.9 or below is need for torch dependency
+
 # Setup
 
 1. Clone this repository
