@@ -6,7 +6,9 @@ from streamlit_webrtc import webrtc_streamer, WebRtcMode
 from video_processor import VideoProcessorMaker
 
 
-st.header('Yolov5 Real Time Object Detection')
+st.title('Automatic Qualification of Resin Application')
+st.caption('in collaboration with MinebeaMitsumi')
+
 batch_number = 0
 if 'item_batch_count' not in st.session_state:
     st.session_state['item_batch_count'] = 0

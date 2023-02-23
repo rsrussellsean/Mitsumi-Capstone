@@ -1,4 +1,3 @@
-
 import streamlit as st
 import torch
 from torchvision import transforms
@@ -22,24 +21,9 @@ def load_model():
     model.eval()
     return model
 
-
-# def load_image():
-#     st.subheader("Upload Images")
-#     uploaded_file = st.file_uploader('Upload Image', type = ['bmp','jpg','png','jpeg'])
-#     if uploaded_file != None:
-#         file_details = {"Filename":uploaded_file.name,"FileType":uploaded_file.type}
-#         st.write(file_details)
-#         # st.write(type(uploaded_file))
-#         image_data = uploaded_file.getvalue()
-#         st.image(image_data)   
-#         return Image.open(io.BytesIO(image_data))
-    
-
-
-
 def load_image():
-    st.subheader("Upload Images")
-    uploaded_file = st.file_uploader('Upload Image', type = ['bmp','jpg','png','jpeg'])
+    st.title("Test image file for Resin Application Quality")
+    uploaded_file = st.file_uploader('Generated with YoloV5', type = ['bmp','jpg','png','jpeg'])
     if uploaded_file != None:
         file_details = {"Filename":uploaded_file.name,"FileType":uploaded_file.type}
         st.write(file_details)
@@ -66,34 +50,24 @@ def main():
         # print(df.to_dict('records')[0]['confidence'])
         st.image(np.squeeze(result.render()))  
               
-        records = df.to_dict('records')   
+        records = df.to_dict('records')
+        st.markdown('<div style="display: flex; justify-content: center; margin:20px 20px">'
+            '<span style="color: #FF7220; font-size: 24px;">• NoResin</span>'
+            '<span style="color: #FE9E97; font-size: 24px; margin-left: 20px;">• Lacking</span>'
+            '<span style="color: #FF3837; font-size: 24px; margin-left: 20px;">• Good</span>'
+            '<span style="color: #FFB21D; font-size: 24px; margin-left: 20px;">• Over</span>'
+            '</div>', 
+            unsafe_allow_html=True)
+
+        
+        # st.caption("• :orange[NoResin] • :pink[Lacking] • :red[Good] • :yellow[Over]")
         st.header("Classes found in the image")
         for i, record in enumerate(records):
             confidence_percentage = record['confidence'] * 100
-            st.subheader(f"[{i}: {record['name']}, {confidence_percentage:.2f}%]")
+            st.subheader(f"{record['name']}, {confidence_percentage:.2f}%")
     else:
         st.warning("Please upload an image.")   
-
-# def main():
-#     model = load_model()
-#     image = load_image()
-#     result = predict(model,image)
-#     print(type(result))
-#     df = result.pandas().xyxy[0]
-#     print(df.to_dict('records'))
-#     # print(df.to_dict('records')[0]['confidence'])
-#     st.image(np.squeeze(result.render()))  
-          
-#     records = df.to_dict('records')   
-#     st.header("Classes found in the image")
-#     for i, record in enumerate(records):
-#         confidence_percentage = record['confidence'] * 100
-#         st.subheader(f"[{i}: {record['name']}, {confidence_percentage:.2f}%]")
-
-    # for i, record in enumerate(records):
-    #     confidence_percentage = record['confidence'] * 100
-    #     record_info = f"{record['name']}, {confidence_percentage:.2f}%"
-    #     st.header(f"{record_info}")
+        
 main()
 
 

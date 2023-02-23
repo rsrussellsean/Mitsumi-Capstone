@@ -6,13 +6,14 @@ import streamlit as st
 import helper
 import random
 import logging
+import os
+os.environ["STREAMLIT_SERVER_RUNNING_MODE"] = "RunOnSave"
 
 DEFAULT_CONFIDENCE_THRESHOLD = 0.5
 
 # confidence_threshold = st.slider(
 #     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
 # )
-
 
 class VideoProcessorMaker:
     saved_records = []
@@ -25,14 +26,13 @@ class VideoProcessorMaker:
     def make(self):
         VideoProcessor.batch_number = self.batch_number
         return VideoProcessor
-
-
 class VideoProcessor:
     saved_records = []
     threshold = 0.5
     batch_number = None
     end_callback = None
     classes_found = None
+
     def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
         # vision processing
@@ -67,7 +67,9 @@ class VideoProcessor:
 
         print("====Classes Found====")
         print(classes_found)
-       
+
+        print("====JSON Data====")
+        helper.print_json_data(flatData)
 
         rand_number = random.randint(100000, 1000000)
 
@@ -76,3 +78,4 @@ class VideoProcessor:
 
         helper.export_to_json(jsonData, rand_number)
         
+
