@@ -25,6 +25,22 @@ def export_to_json(data, file_number):
         json.dump(data, outfile)
     outfile.close()
     
+# def export_to_json(data, file_number):
+#     with open("./output/batch-"+str(file_number)+".json", "w") as outfile:
+#         json.dump(data, outfile)
+#     outfile.close()
+
+#     xls_data = create_xls(data, ["batch-"+str(file_number)])
+#     with open("./output/batch-"+str(file_number)+".xlsx", "wb") as outfile:
+#         outfile.write(xls_data)
+#     outfile.close()
+    
+# def get_xls_data(file_number):
+#     with open("./output/batch-"+str(file_number)+".xlsx", "rb") as infile:
+#         xls_data = infile.read()
+#     infile.close()
+#     return xls_data
+
 #exporting xls file
 def create_xls(records_list, file_names):
     all_records = []
