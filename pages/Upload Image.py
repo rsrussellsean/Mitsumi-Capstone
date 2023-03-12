@@ -1,11 +1,12 @@
 import streamlit as st
 import torch
-from PIL import Image
 import io
-from matplotlib import pyplot as plt
 import numpy as np
 import helper
 import zipfile
+from PIL import Image
+from matplotlib import pyplot as plt
+from model import load_model
 
 def save_file(uploadedfile):
     with open(uploadedfile,"wb") as f:
@@ -13,11 +14,11 @@ def save_file(uploadedfile):
     return st.success("File Saved")
 
 # YoloV5 model with 500 epochs
-def load_model():
-    run_model_path = 'model/bestv2_500.pt'
-    model = torch.hub.load('ultralytics/yolov5','custom',path=run_model_path,force_reload=True)
-    model.eval()
-    return model
+# def load_model():
+#     run_model_path = 'models/bestv2_500.pt'
+#     model = torch.hub.load('ultralytics/yolov5','custom',path=run_model_path,force_reload=True)
+#     model.eval()
+#     return model
         
 def predict(model, image):
     output = model(image)
