@@ -1,81 +1,86 @@
 
-from PIL import Image
-import numpy as np
-import av
-import streamlit as st
-import helper
-import random
-import logging
-import os
-os.environ["STREAMLIT_SERVER_RUNNING_MODE"] = "RunOnSave"
+# from PIL import Image
+# import numpy as np
+# import av
+# import cv2
+# import streamlit as st
+# import helper
+# import random
+# import logging
+# import os
+# from streamlit_webrtc import webrtc_streamer, WebRtcMode
 
-DEFAULT_CONFIDENCE_THRESHOLD = 0.5
+# os.environ["STREAMLIT_SERVER_RUNNING_MODE"] = "RunOnSave"
 
-# confidence_threshold = st.slider(
-#     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
-# )
+# DEFAULT_CONFIDENCE_THRESHOLD = 0.5
 
-class VideoProcessorMaker:
-    saved_records = []
-    threshold = 0.5
-    batch_number = None
 
-    def __init__(self, batch_name) -> None:
-        self.batch_number = batch_name
+# # confidence_threshold = st.slider(
+# #     "Confidence threshold", 0.0, 1.0, DEFAULT_CONFIDENCE_THRESHOLD, 0.05
+# # )
 
-    def make(self):
-        VideoProcessor.batch_number = self.batch_number
-        return VideoProcessor
-class VideoProcessor:
-    saved_records = []
-    threshold = 0.5
-    batch_number = None
-    end_callback = None
-    classes_found = None
+# class VideoProcessorMaker:
+#     saved_records = []
+#     threshold = 0.5
+#     batch_number = None
 
-    def recv(self, frame):
-        img = frame.to_ndarray(format="bgr24")
-        # vision processing
-        flipped = img[:, ::-1, :]
+#     def __init__(self, batch_name) -> None:
+#         self.batch_number = batch_name
 
-        # model processing
-        im_pil = Image.fromarray(flipped)
-        results = st.model(im_pil, size=112)
-        df = results.pandas().xyxy[0]
+#     def make(self):
+#         VideoProcessor.batch_number = self.batch_number
+#         return VideoProcessor
+# class VideoProcessor:
+#     saved_records = []
+#     threshold = 0.5
+#     batch_number = None
+#     end_callback = None
+#     classes_found = None
 
-        if len(df.index) > 0:
-            records = df.to_dict('records')
-            if len(records) > 0:
-                # results.save()
-                filtered_record = helper.filter_data_by_treshold(
-                    records, self.threshold)
-                if len(filtered_record) > 0:
-                    self.saved_records.append(filtered_record)
+#     def recv(self, frame):
+#         img = frame.to_ndarray(format="bgr24")
+#         # vision processing
+#         flipped = img[:, ::-1, :]
 
-        bbox_img = np.array(results.render()[0])
+#         # model processing
+#         im_pil = Image.fromarray(flipped)
+#         results = st.model(im_pil, size=112)
+#         df = results.pandas().xyxy[0]
 
-        return av.VideoFrame.from_ndarray(bbox_img, format="bgr24")
+#         if len(df.index) > 0:
+#             records = df.to_dict('records')
+#             if len(records) > 0:
+#                 # results.save()
+#                 filtered_record = helper.filter_data_by_treshold(
+#                     records, self.threshold)
+#                 if len(filtered_record) > 0:
+#                     self.saved_records.append(filtered_record)
 
-    def on_ended(self):
-        print('====Video Ended====')
+#         bbox_img = np.array(results.render()[0])
 
-        jsonData = self.saved_records
+#         return av.VideoFrame.from_ndarray(bbox_img, format="bgr24")
 
-        flatData = helper.flat_result_data(jsonData)
-        classes_found = helper.get_categories(flatData)
-        st.header(classes_found)
+#     def on_ended(self):
+#         print('====Video Ended====')
 
-        print("====Classes Found====")
-        print(classes_found)
+#         jsonData = self.saved_records
 
-        print("====JSON Data====")
-        helper.print_json_data(flatData)
+#         flatData = helper.flat_result_data(jsonData)
+#         classes_found = helper.get_categories(flatData)
+#         st.header(classes_found)
 
-        rand_number = random.randint(100000, 1000000)
+#         print("====Classes Found====")
+#         print(classes_found)
 
-        if self.batch_number:
-            rand_number = self.batch_number
+#         print("====JSON Data====")
+#         helper.print_json_data(flatData)
 
-        helper.export_to_json(jsonData, rand_number)
-        
-        
+#         rand_number = random.randint(100000, 1000000)
+
+#         if self.batch_number:
+#             rand_number = self.batch_number
+
+#         helper.export_to_json(jsonData, rand_number)
+
+
+
