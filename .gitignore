@@ -6,3 +6,4 @@ env/
 _pycache_/
 .yaml
 docker-compose.yaml
+models/bestv2_500.pt

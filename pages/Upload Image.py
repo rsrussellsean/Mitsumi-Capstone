@@ -1,11 +1,10 @@
 import streamlit as st
 import io
 import numpy as np
-import helper
 import zipfile
-from PIL import Image
-from matplotlib import pyplot as plt
+import helper
 from model import load_model
+from PIL import Image
 
 def save_file(uploadedfile):
     with open(uploadedfile,"wb") as f:
@@ -44,9 +43,6 @@ def load_image():
             images.append((image, uploaded_file.name))
             
     return images
-
-import io
-from PIL import Image
 
 def main():
     model = load_model()
@@ -127,7 +123,6 @@ def main():
                 )
             else:
                 st.warning("Unable to create a ZIP file of predicted images.")
-            
     else:
         st.warning("Please upload at least one image.")
         

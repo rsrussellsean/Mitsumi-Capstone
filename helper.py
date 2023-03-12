@@ -2,6 +2,7 @@ import operator
 import json
 import pandas as pd
 from functools import reduce
+from datetime import datetime
 
 def flat_result_data(data):
    return reduce(operator.iconcat, data, [])
@@ -17,9 +18,16 @@ def get_categories(data):
             categories_found.append(category)
     return categories_found
 
-def export_to_json(data, file_number):
-    with open("./output/batch-"+str(file_number)+".json", "w") as outfile:
-        json.dump(data, outfile)
+
+def export_to_json(json_data, file_number, output_dir="./output"):
+    now = datetime.now()
+    str_current_datetime = now.strftime("%Y-%m-%d %H_%M_%S")
+    str_current_datetime = str_current_datetime.replace(':', '_')
+
+    with open(f"{output_dir}/batch-{file_number}-{str_current_datetime}.json", "w") as outfile:
+        json.dump(json_data, outfile)
+
+    print(f"JSON data has been exported to ./output/batch-{file_number}-{str_current_datetime}.json")
     outfile.close()
 
 #exporting xls file
