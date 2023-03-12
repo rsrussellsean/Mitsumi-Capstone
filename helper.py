@@ -1,10 +1,7 @@
-from functools import reduce
 import operator
 import json
-#new
 import pandas as pd
-from io import BytesIO
-import xlsxwriter
+from functools import reduce
 
 def flat_result_data(data):
    return reduce(operator.iconcat, data, [])
