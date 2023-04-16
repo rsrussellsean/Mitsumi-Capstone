@@ -12,6 +12,9 @@ from model import load_model
 from PIL import Image
 from streamlit_webrtc import webrtc_streamer, WebRtcMode
 
+import copy
+
+
 os.environ["STREAMLIT_SERVER_RUNNING_MODE"] = "RunOnSave"
 class VideoProcessorMaker:
     saved_records = []
@@ -34,6 +37,8 @@ class VideoProcessor:
     def __init__(self, batch_number, end_callback=None):
         self.batch_number = batch_number
         self.end_callback = end_callback
+        self.last_detected_data = None
+        self.timer_start = None
 
     def recv(self, frame):
         img = frame.to_ndarray(format="bgr24")
@@ -47,7 +52,7 @@ class VideoProcessor:
         
         # model processing
         im_pil = Image.fromarray(img)
-        results = st.model(im_pil, size=112)
+        results = st.model(im_pil, size=224)#112 224 256
         df = results.pandas().xyxy[0]
 
         if len(df.index) > 0:
@@ -57,7 +62,14 @@ class VideoProcessor:
                 filtered_record = helper.filter_data_by_treshold(
                     records, self.threshold)
                 if len(filtered_record) > 0:
-                    self.saved_records.append(filtered_record)
+                    self.last_detected_data = filtered_record
+                    self.timer_start = time.time()
+
+        # check if 5 seconds have passed since last detection
+        if self.last_detected_data and time.time() - self.timer_start >= 0.5:
+            self.saved_records.append(self.last_detected_data)
+            self.last_detected_data = None
+            self.timer_start = None
 
         bbox_img = np.array(results.render()[0])
 
@@ -160,7 +172,23 @@ if st.checkbox("Show the detected labels", value=False):
                 json_data = webrtc_ctx.video_processor.saved_records
                 df = pd.DataFrame(helper.flat_result_data(json_data))
                 labels_placeholder.table(df)
-                time.sleep(0.5)
+                # time.sleep(0.5)
             except IndexError:
                 pass
-        
+    
+    
+# if st.checkbox("Show the detected labels", value=False):
+#     if webrtc_ctx.state.playing:
+#         labels_placeholder = st.empty()
+#         last_data = []
+#         while True:
+#             try:
+#                 json_data = webrtc_ctx.video_processor.saved_records
+#                 df = pd.DataFrame(helper.flat_result_data(json_data))
+#                 # check if new data has been added since last loop
+#                 if json_data != last_data:
+#                     last_data = copy.deepcopy(json_data)
+#                     labels_placeholder.table(df)
+#                 time.sleep(0.5)
+#             except IndexError:
+#                 pass

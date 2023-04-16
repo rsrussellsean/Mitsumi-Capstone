@@ -6,7 +6,7 @@ def load_model():
     model_url = "https://github.com/rsrussellsean/Mitsumi-Capstone/raw/main/model/bestv2_500.pt"
 
     # Define the local path to save the model
-    model_local_path = "models/bestv2_500.pt"
+    model_local_path = "models/mymodel.pt"
 
     # Define the local cache directory for the ultralytics/yolov5 package
     cache_dir = os.path.expanduser('~/.cache/torch/hub/ultralytics_yolov5_master')
