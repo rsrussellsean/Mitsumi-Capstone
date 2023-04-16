@@ -66,7 +66,7 @@ class VideoProcessor:
                     self.timer_start = time.time()
 
         # check if 5 seconds have passed since last detection
-        if self.last_detected_data and time.time() - self.timer_start >= 0.5:
+        if self.last_detected_data and time.time() - self.timer_start >= 2:
             self.saved_records.append(self.last_detected_data)
             self.last_detected_data = None
             self.timer_start = None
@@ -164,31 +164,31 @@ else:
         webrtc_ctx.video_processor.canny = False
 
 # detected table
-if st.checkbox("Show the detected labels", value=False):
-    if webrtc_ctx.state.playing:
-        labels_placeholder = st.empty()
-        while True:
-            try:
-                json_data = webrtc_ctx.video_processor.saved_records
-                df = pd.DataFrame(helper.flat_result_data(json_data))
-                labels_placeholder.table(df)
-                # time.sleep(0.5)
-            except IndexError:
-                pass
-    
-    
 # if st.checkbox("Show the detected labels", value=False):
 #     if webrtc_ctx.state.playing:
 #         labels_placeholder = st.empty()
-#         last_data = []
 #         while True:
 #             try:
 #                 json_data = webrtc_ctx.video_processor.saved_records
 #                 df = pd.DataFrame(helper.flat_result_data(json_data))
-#                 # check if new data has been added since last loop
-#                 if json_data != last_data:
-#                     last_data = copy.deepcopy(json_data)
-#                     labels_placeholder.table(df)
-#                 time.sleep(0.5)
+#                 labels_placeholder.table(df)
+#                 # time.sleep(0.5)
 #             except IndexError:
 #                 pass
+    
+    
+if st.checkbox("Show the detected labels", value=False):
+    if webrtc_ctx.state.playing:
+        labels_placeholder = st.empty()
+        last_data = []
+        while True:
+            try:
+                json_data = webrtc_ctx.video_processor.saved_records
+                df = pd.DataFrame(helper.flat_result_data(json_data))
+                # check if new data has been added since last loop
+                if json_data != last_data:
+                    last_data = copy.deepcopy(json_data)
+                    labels_placeholder.table(df)
+                time.sleep(0.5)
+            except IndexError:
+                pass

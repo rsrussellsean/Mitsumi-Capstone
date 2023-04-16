@@ -3,8 +3,9 @@ import os
 
 def load_model():
     # Define the URL for the model on GitHub
-    model_url = "https://github.com/rsrussellsean/Mitsumi-Capstone/raw/main/model/bestv2_500.pt"
-
+    # model_url = "https://github.com/rsrussellsean/Mitsumi-Capstone/raw/main/model/mymodel.pt"
+    model_url = "https://github.com/rsrussellsean/Mitsumi-Capstone/raw/features/models/mymodel.pt"
+    
     # Define the local path to save the model
     model_local_path = "models/mymodel.pt"
 
