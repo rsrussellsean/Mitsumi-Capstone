@@ -7,8 +7,11 @@ from datetime import datetime
 def flat_result_data(data):
    return reduce(operator.iconcat, data, [])
 
-def filter_data_by_treshold(records, threshold):
-    return list(filter(lambda record: record['confidence'] > threshold, records))
+# def filter_data_by_treshold(records, threshold):
+#     return list(filter(lambda record: record['confidence'] > threshold, records))
+
+def filter_data_by_treshold(records, threshold, min_confidence=5, max_confidence=9):
+    return list(filter(lambda record: threshold < record['confidence'] < max_confidence and record['confidence'] > min_confidence, records))
 
 def get_categories(data):
     categories_found = []

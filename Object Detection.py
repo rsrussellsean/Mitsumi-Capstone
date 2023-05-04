@@ -59,8 +59,9 @@ class VideoProcessor:
             records = df.to_dict('records')
             if len(records) > 0:
                 # results.save()
-                filtered_record = helper.filter_data_by_treshold(
-                    records, self.threshold)
+                # filtered_record = helper.filter_data_by_treshold(
+                #     records, self.threshold)
+                filtered_record = helper.filter_data_by_treshold(records, self.threshold, min_confidence=0.5, max_confidence=0.9)
                 if len(filtered_record) > 0:
                     self.last_detected_data = filtered_record
                     self.timer_start = time.time()
