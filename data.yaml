@@ -1,0 +1,15 @@
+names:
+  - Good
+  - Lacking
+  - NoResin
+  - Over
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: resin-application-0enof
+  url: https://universe.roboflow.com/cit-mecfc/resin-application-0enof/dataset/3
+  version: 3
+  workspace: cit-mecfc
+test: ../test/images
+train: Resin-Application-3/train/images
+val: Resin-Application-3/valid/images

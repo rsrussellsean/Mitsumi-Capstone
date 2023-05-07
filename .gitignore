@@ -1,0 +1,12 @@
+.streamlit/
+output/
+Pipfile
+.env
+venv/
+_pycache_/
+.yaml
+docker-compose.yaml
+models/bestv2_500.pt
+models/mymodel.pt
+
+# yolov5/

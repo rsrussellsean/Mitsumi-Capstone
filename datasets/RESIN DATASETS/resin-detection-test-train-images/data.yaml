@@ -1,0 +1,15 @@
+names:
+- good
+- lacking
+- noResin
+- over
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: resin-detection
+  url: https://universe.roboflow.com/resindetectionn/resin-detection/dataset/3
+  version: 3
+  workspace: resindetectionn
+test: ../test/images
+train: resin-detection-3/train/images
+val: resin-detection-3/valid/images
