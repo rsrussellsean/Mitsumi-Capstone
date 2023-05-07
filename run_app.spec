@@ -8,7 +8,7 @@ a = Analysis(
     ['run_app.py'],
     pathex=[],
     binaries=[],
-    datas=[('models/mymodel.pt', 'models'), ('yolov5s.yaml', '.'), ('yolov5', '.'), ('object_detection.py', '.'), ('pages/upload_image.py', 'pages'), ('helper.py', '.'), ('model.py', '.')],
+    datas=[('models/mymodel.pt', 'models'), ('yolov5s.yaml', '.'), ('yolov5', '.'), ('object_detection.py', '.'), ('pages/upload_image.py', 'pages'), ('helper.py', '.'), ('model.py', '.'), ('yolov5', './yolov5')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

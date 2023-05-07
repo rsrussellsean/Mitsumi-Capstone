@@ -1,3 +1,19 @@
+import os
+import torch
+import sys
+
+def load_model():
+    if getattr(sys, 'frozen', False):
+        bundle_dir = sys._MEIPASS
+    else:
+        bundle_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    run_model_path = os.path.join(bundle_dir, 'models', 'mymodel.pt')
+    yolov5_directory = os.path.join(bundle_dir, 'yolov5')
+    model = torch.hub.load(yolov5_directory, 'custom', path=run_model_path, source='local')
+    return model
+
+
 # import torch
 # import os
 
@@ -75,14 +91,45 @@
 #     model = torch.hub.load('C:/Users/Russell/OneDrive/Desktop/Research/Capstone/Mitsumi-Capstone-features/yolov5', 'custom', path=run_model_path, source='local')
 #     return model
 
-import os
-import torch
+# import os
+# import torch
 
-def load_model():
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    yolov5_directory = os.path.join(current_directory, 'yolov5')
-    run_model_path = os.path.join(current_directory, 'models', 'mymodel.pt')
+# def load_model():
+#     current_directory = os.path.dirname(os.path.abspath(__file__))
+#     yolov5_directory = os.path.join(current_directory, 'yolov5')
+#     run_model_path = os.path.join(current_directory, 'models', 'mymodel.pt')
 
-    model = torch.hub.load(yolov5_directory, 'custom', path=run_model_path, source='local')
-    return model
+#     model = torch.hub.load(yolov5_directory, 'custom', path=run_model_path, source='local')
+#     return model
+
+# import os
+# import torch
+
+# def load_model():
+#     current_directory = os.path.dirname(os.path.abspath(__file__))
+#     yolov5_directory = os.path.join(current_directory, 'yolov5')
+#     run_model_path = os.path.join(current_directory, 'models', 'mymodel.pt')
+
+#     model = torch.hub.load(yolov5_directory, 'custom', path=run_model_path, source='local')
+#     return model
+
+# import os
+# import torch
+
+# def load_model():
+#     current_directory = os.path.dirname(os.path.abspath(__file__))
+#     run_model_path = os.path.join(current_directory, 'models', 'mymodel.pt')
+#     model = torch.hub.load('C:/Users/Russell/OneDrive/Desktop/Research/Capstone/Mitsumi-Capstone-features/yolov5', 'custom', path=run_model_path, source='local')
+#     return model
+
+# import os
+# import torch
+
+# def load_model():
+#     current_directory = os.path.dirname(os.path.abspath(__file__))
+#     yolov5_directory = os.path.join(current_directory, 'yolov5')
+
+#     run_model_path = os.path.join(current_directory, 'models', 'mymodel.pt')
+#     model = torch.hub.load(yolov5_directory, 'custom', path=run_model_path, source='local')
+#     return model
 

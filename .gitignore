@@ -8,5 +8,4 @@ _pycache_/
 docker-compose.yaml
 models/bestv2_500.pt
 models/mymodel.pt
-
-# yolov5/
+yolov5/

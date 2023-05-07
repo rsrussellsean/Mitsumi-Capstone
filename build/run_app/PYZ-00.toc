@@ -1,4 +1,5 @@
-('C:\\Users\\Russell\\OneDrive\\Desktop\\Research\\Capstone\\Mitsumi-Capstone-features\\build\\run_app\\PYZ-00.pyz',
+('C:\\Users\\Russell\\OneDrive\\Desktop\\Research\\Capstone\\test offline '
+ 'repo\\Mitsumi-Capstone\\build\\run_app\\PYZ-00.pyz',
  [('_compat_pickle',
    'C:\\Users\\Russell\\AppData\\Local\\Programs\\Python\\Python310\\lib\\_compat_pickle.py',
    'PYMODULE'),
