@@ -109,15 +109,16 @@ if not hasattr(st, 'classifier'):
     st.model = load_model()
 
 
+score_threshold = st.slider("Confidence threshold", 0.0, 1.0, 0.5, 0.05, key="score_threshold")
 streaming_placeholder = st.empty()
 
 with streaming_placeholder.container():
     webrtc_ctx = webrtc_streamer(
         key="WYH",
         mode=WebRtcMode.SENDRECV,
-        # rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
         video_processor_factory=lambda: VideoProcessor(
-            batch_number=batch_number
+            batch_number=batch_number,
+            threshold=score_threshold  # Pass the threshold value when creating the processor
         ),
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True
@@ -141,7 +142,6 @@ if st.button("Save Batch"):
         st.warning("No classes found in this batch!")
 
 # adjust threshold
-score_threshold = st.slider("Confidence threshold", 0.0, 1.0, 0.5, 0.05, key="score_threshold")
 
 if webrtc_ctx.state.playing and webrtc_ctx.video_processor:
     if "score_threshold" not in st.session_state:
