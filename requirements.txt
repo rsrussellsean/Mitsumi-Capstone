@@ -17,4 +17,5 @@ charset_normalizer
 matplotlib
 seaborn
 pyinstaller
+ultralytics
 
