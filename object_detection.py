@@ -56,7 +56,7 @@ class VideoProcessor:
 
         # model processing
         im_pil = Image.fromarray(img)
-        results = st.model(im_pil, size=256)  # 112 224 256 640
+        results = st.model(im_pil, size=112)  # 112 224 256 640
         df = results.pandas().xyxy[0]
 
         if len(df.index) > 0:
